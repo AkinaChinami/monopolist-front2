@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+import {useEffect, useState} from "react";
 import './App.css';
+import logo from "./logo-monopolist.png";
 import {Services} from "./Services";
-import {World} from "../world";
+import {World} from "./world";
 
-function App() {
-    const [services, setServices] = useState(new Services(""))
-    const [world, setWorld] = useState(new World())
+
+
+
+export default function App() {
+    const [services, setServices] = useState(new Services(""));
+    const [world, setWorld] = useState(new World());
 
     useEffect(() => {
         let services = new Services("username")
@@ -37,7 +40,10 @@ function App() {
       */
       <div>
         <div className="header">
-          <div> logo monde</div>
+          <div>
+              <img className="logo" src={logo}/>
+          </div>
+            <span> {world.name} </span>
           <div> argent</div>
           <div> multiplicateur</div>
           <div> ID du joueur</div>
@@ -57,5 +63,3 @@ function App() {
 
   );
 }
-
-export default App;

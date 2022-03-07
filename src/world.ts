@@ -1,7 +1,7 @@
 
 export class World {
-    name : string = ""
-    logo : string = ""
+    name : string = "str1234"
+    logo : string = "logo-monopolist.png"
     money: number = 0
     score: number = 0
     totalangels: number = 0
