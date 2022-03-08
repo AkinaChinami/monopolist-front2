@@ -2,8 +2,12 @@ import axios, {AxiosError, AxiosPromise} from "axios";
 import {World} from "./world";
 
 export class Services {
-    server = "http://localhost:8080/"
-    api = this.server + "monopolist/generic";
+
+
+    //server = "localhost:8080/"
+    //api = this.server + "monopolist/generic";
+    server = "https://isiscapitalist.kk.kurasawa.fr/"
+    api = this.server + "adventureisis/generic";
     user = "";
     constructor(user: string) {
         this.user = user
