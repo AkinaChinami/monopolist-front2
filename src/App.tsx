@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
-import logo from "./logo-monopolist.png";
 import {Services} from "./Services";
 import {World} from "./world";
-import Product from './Product'
+import ProductComponent from "./Product";
 
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
     const [world, setWorld] = useState(new World());
+    const[username, setUsername] = useState("");
 
     useEffect(() => {
         let services = new Services("username")
@@ -19,6 +19,29 @@ export default function App() {
     }, [])
     console.log("world",world);
     console.log("product",world.products.product[0]);
+
+    // useEffect(() => {
+    //     if (username !== "") {
+    //         let services = new Services(username)
+    //         setServices(services)
+    //         services.getWorld().then(response => {
+    //             let liste = compute.unlocks.list(response.data)
+    //             setWorld(response.data)
+    //             setUnlockList(liste)
+    //         })
+    //
+    //     }
+    //
+    // })
+
+    useEffect(() => {
+        let username = localStorage.getItem("username");
+        if(!username || username === "") {
+            username = "Captain" + Math.floor(Math.random()*10000);
+        }
+        localStorage.setItem("username", username);
+        setUsername(username);
+    })
     return (
         /*
       <div className="App">
@@ -38,39 +61,57 @@ export default function App() {
         </header>
       </div>
         */
+
         <div className="App">
             <div className="header">
-                <div>
-                    <img src={services.server + world.logo}/>
-                </div>
-                <div className="nom"> <span> {world.name} </span> </div>
-                <div className="money"> <span> {world.money} </span></div>
+                <div> <img id="logo" src={services.server + world.logo}/> </div>
+                <span className="nom">
+                    {world.name}
+                </span>
+                <span className="money">
+                    {world.money}
+                </span>
                 <div> multiplicateur</div>
                 <div> ID du joueur</div>
             </div>
+
             <div className="main">
-                <div> liste des boutons de menu</div>
-                <div className="product">
-                    <div className="tente">
-                        <Product prod={world.products.product[0]} services={services}/>
-                    </div>
-                    <div className="cabane">
-                        <Product prod={world.products.product[1]} services={services}/>
-                    </div>
-                    <div className="immeuble">
-                        <Product prod={world.products.product[2]} services={services}/>
-                    </div>
-                    <div className="maison">
-                        <Product prod={world.products.product[3]} services={services}/>
-                    </div>
-                    <div className="peniche">
-                        <Product prod={world.products.product[4]} services={services}/>
-                    </div>
-                    <div className="chateau">
-                        <Product prod={world.products.product[5]} services={services}/>
-                    </div>
+
+                <div className="Menu">
+                   <ul>
+                       <li id="Unlocks"></li>
+                       <li id="Cash Upgrades"></li>
+                       <li id="Angel Upgrades"></li>
+                       <li id="Managers"></li>
+                       <li id="Investors"></li>
+                   </ul>
                 </div>
+
+                <div className="product">
+
+                    <div className="tente" >
+                        <ProductComponent prod={world.products.product[0]} services={services}/>
+                    </div>
+                    <div className="cabane" >
+                        <ProductComponent prod={world.products.product[1]} services={services}/>
+                    </div>
+                    <div className="immeuble" >
+                        <ProductComponent prod={world.products.product[2]} services={services}/>
+                    </div>
+                    <div className="maison" >
+                        <ProductComponent prod={world.products.product[3]} services={services}/>
+                    </div>
+                    <div className="peniche" >
+                        <ProductComponent prod={world.products.product[4]} services={services}/>
+                    </div>
+                    <div className="chateau" >
+                        <ProductComponent prod={world.products.product[5]} services={services}/>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
 
     );

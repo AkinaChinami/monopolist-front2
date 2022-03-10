@@ -39,20 +39,39 @@
 }
 */
 
+/*Mise en forme du Header*/
 .header {
   display: grid;
-  grid-template-columns: 25% 25% 30% 20%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
 }
+#logo {
+  width: 20%;
+  /*max-height: 10%;*/
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
 
 .main {
   display: grid;
   grid-template-columns: 20% 80%;
 }
+/*Mise en forme des produits*/
 .product {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-image:url("../public/Font/1_Jour.PNG");
 }
-.logo {
-  height: 256px;
-  width: 256px;
+#p{
+  width: auto;
+  max-height: 10%;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+.produit {
+  position: relative;
+}
+.q {
+  position: absolute;
+  bottom: -10px;
 }

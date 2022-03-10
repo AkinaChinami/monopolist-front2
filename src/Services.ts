@@ -1,13 +1,13 @@
 import axios, {AxiosError, AxiosPromise} from "axios";
-import {World} from "./world";
+import {Pallier, World, Product} from "./world";
 
 export class Services {
 
 
-    //server = "localhost:8080/"
-    //api = this.server + "monopolist/generic";
-    server = "https://isiscapitalist.kk.kurasawa.fr/"
-    api = this.server + "adventureisis/generic";
+    server = "http://localhost:8080/"
+    api = this.server + "monopolist/generic";
+    // server = "https://isiscapitalist.kk.kurasawa.fr/"
+    // api = this.server + "adventureisis/generic";
     user = "";
     constructor(user: string) {
         this.user = user
@@ -29,4 +29,40 @@ export class Services {
             headers: Services.setHeaders(this.user)
         }).catch(Services.handleError)
     }
+
+    putManager(manager : Pallier) : AxiosPromise<Response> {
+        return axios({
+            method: 'put',
+            url: this.api + '/manager',
+            data: manager,
+            headers: Services.setHeaders(this.user)
+        }).catch(Services.handleError)
+    }
+
+    putProduct(product : Product) : AxiosPromise<Response> {
+        return axios({
+            method: 'put',
+            url: this.api + '/product',
+            data: product,
+            headers: Services.setHeaders(this.user)
+        }).catch(Services.handleError)
+    }
+
+    putUpgrade(manager : Pallier) : AxiosPromise<Response> {
+        return axios({
+            method: 'put',
+            url: this.api + '/upgrade',
+            data: manager,
+            headers: Services.setHeaders(this.user)
+        }).catch(Services.handleError)
+    }
+
+    // putManager(manager : Pallier) : AxiosPromise<Response> {
+    //     return axios({
+    //         method: 'put',
+    //         url: this.api + '/manager',
+    //         data: manager,
+    //         headers: Services.setHeaders(this.user)
+    //     }).catch(Services.handleError)
+    // }
 }
