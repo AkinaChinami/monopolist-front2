@@ -12,6 +12,7 @@ export default function App() {
     const [world, setWorld] = useState(new World());
     const[username, setUsername] = useState("");
     const[showManagers,etat]= useState(false);
+    const [qtmulti, setQtmulti] = useState(0);
 
     useEffect(() => {
         let services = new Services("username")
@@ -47,17 +48,15 @@ export default function App() {
         etat(true)
     }
 
-
-
     function onProductionDone(p: Product): void {
         // calcul de la somme obtenue par la production du produit
-        let gain = p.quantite * p.revenu
+        let gain = p.revenu
         // ajout de la somme à l’argent possédé
         addToScore(gain)
     }
 
-    function addToScore(gain:number) {
-        world.score += gain
+    function addToScore(gain:number): void {
+        setWorld(world => ({...world, money: world.money+gain, score:world.score+gain}))
     }
 
     return (
@@ -70,6 +69,8 @@ export default function App() {
                 </div>
                 <span className="money">
                     <span dangerouslySetInnerHTML={{__html: transform(world.money)}}></span>
+                </span><span className="score">
+                    <span dangerouslySetInnerHTML={{__html: transform(world.score)}}></span>
                 </span>
                 <div id = "font"> multiplicateur</div>
                 <div id = "font"> ID du joueur</div>
@@ -89,22 +90,52 @@ export default function App() {
 
                 <div className="product">
                     <div className="tente" >
-                        {/*<ProductComponent prod={world.products.product[0]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[0]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                     <div className="cabane" >
-                        {/*<ProductComponent prod={world.products.product[1]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[1]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                     <div className="immeuble" >
-                        {/*<ProductComponent prod={world.products.product[2]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[2]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                     <div className="maison" >
-                        {/*<ProductComponent prod={world.products.product[3]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[3]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                     <div className="peniche" >
-                        {/*<ProductComponent prod={world.products.product[4]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[4]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                     <div className="chateau" >
-                        {/*<ProductComponent prod={world.products.product[5]} onProductionDone={onProductionDone} services={services}/>*/}
+                        <ProductComponent
+                            prod={world.products.product[5]}
+                            onProductionDone={onProductionDone}
+                            qtmulti={qtmulti}
+                            money={world.money}
+                            services={services}/>
                     </div>
                 </div>
 

@@ -8,11 +8,37 @@ import {useEffect, useRef, useState} from "react";
 type ProductProps = {
     prod: Product,
     onProductionDone: (product: Product) => void,
+    qtmulti: number,
+    money: number,
     services: Services
 }
 
-export default function ProductComponent({ prod, onProductionDone, services } : ProductProps) {
+export default function ProductComponent({ prod, onProductionDone, qtmulti, money, services } : ProductProps) {
     const [progress, setProgress] = useState(0)
+
+    const calcScore = () => {
+        if (prod==null) {
+            return
+        }
+        if (prod.timeleft !== 0) {
+            if (prod.timeleft > 0) {
+                prod.timeleft -= (Date.now() - prod.lastupdate)
+                prod.progressBarValue = ((prod.vitesse - prod.timeleft) / prod.vitesse) * 100
+                setProgress(prod.progressBarValue)
+            }
+            if (prod.timeleft < 0) {
+                prod.timeleft = 0
+                prod.progressBarValue = 0
+                onProductionDone(prod)
+            }
+
+        }
+    }
+
+    const startFabrication = () => {
+        prod.timeleft = prod.vitesse
+        prod.lastupdate = Date.now();
+    }
 
     const savedCallback = useRef(calcScore);
     useEffect(() => savedCallback.current = calcScore)
@@ -24,37 +50,22 @@ export default function ProductComponent({ prod, onProductionDone, services } : 
         }
     }, [])
 
-    function calcScore() {
-        console.log("calc")
-        if (prod.timeleft > 0) {
-            prod.timeleft = (Date.now() - prod.lastupdate) - prod.timeleft
-            prod.progressBarValue = ((prod.vitesse - prod.timeleft) / prod.vitesse) * 100
-        }
-        if (prod.timeleft < 0) {
-            prod.timeleft = 0
-            prod.progressBarValue = 0
-            onProductionDone(prod)
-        }
-    }
-
-    function startFabrication() {
-        console.log("bla")
-        prod.timeleft = prod.vitesse
-        prod.lastupdate = Date.now();
-    }
-
-    return (
-        <div>
-            <div className={"productElement"}>
-                <div className="produit">
-                    <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
-                    <span className="q">{prod.quantite}</span>
+    if(prod==null) return (<div></div>)
+    else {
+        return (
+            <div>
+                <div className={"productElement"}>
+                    <div className="produit">
+                        <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
+                        <span className="q">{prod.quantite}</span>
+                    </div>
+                    <span id="font"> {prod.name} </span>
+                    <Box sx={{width: '100%'}}>
+                        <ProgressBar transitionDuration={"0.1s"} customLabel={" "} completed={progress}/>
+                    </Box>
                 </div>
-                <span id = "font"> {prod.name} </span>
-                <Box sx={{width: '100%'}}>
-                    <ProgressBar transitionDuration={"0.1s"} customLabel={" "} completed={progress}/>
-                </Box>
             </div>
-        </div>
-    )}
+        )
+    }
+}
 
