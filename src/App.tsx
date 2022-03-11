@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {Services} from "./Services";
-import {World} from "./world";
+import {Product, World} from "./world";
 import ProductComponent from "./Product";
+import {transform} from "./utils";
 
 
 export default function App() {
@@ -42,26 +43,19 @@ export default function App() {
         localStorage.setItem("username", username);
         setUsername(username);
     })
-    return (
-        /*
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-        */
 
+    function onProductionDone(p: Product): void {
+        // calcul de la somme obtenue par la production du produit
+        let gain = p.quantite * p.revenu
+        // ajout de la somme à l’argent possédé
+        addToScore(gain)
+    }
+
+    function addToScore(gain:number) {
+        world.score += gain
+    }
+
+    return (
         <div className="App">
             <div className="header">
                 <div> <img id="logo" src={services.server + world.logo}/> </div>
@@ -69,7 +63,7 @@ export default function App() {
                     {world.name}
                 </span>
                 <span className="money">
-                    {world.money}
+                    <span dangerouslySetInnerHTML={{__html: transform(world.money)}}></span>
                 </span>
                 <div> multiplicateur</div>
                 <div> ID du joueur</div>
@@ -90,22 +84,22 @@ export default function App() {
                 <div className="product">
 
                     <div className="tente" >
-                        <ProductComponent prod={world.products.product[0]} services={services}/>
+                        <ProductComponent prod={world.products.product[0]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="cabane" >
-                        <ProductComponent prod={world.products.product[1]} services={services}/>
+                        <ProductComponent prod={world.products.product[1]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="immeuble" >
-                        <ProductComponent prod={world.products.product[2]} services={services}/>
+                        <ProductComponent prod={world.products.product[2]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="maison" >
-                        <ProductComponent prod={world.products.product[3]} services={services}/>
+                        <ProductComponent prod={world.products.product[3]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="peniche" >
-                        <ProductComponent prod={world.products.product[4]} services={services}/>
+                        <ProductComponent prod={world.products.product[4]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="chateau" >
-                        <ProductComponent prod={world.products.product[5]} services={services}/>
+                        <ProductComponent prod={world.products.product[5]} onProductionDone={onProductionDone} services={services}/>
                     </div>
 
                 </div>
