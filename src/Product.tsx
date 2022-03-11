@@ -25,9 +25,9 @@ export default function ProductComponent({ prod, services } : ProductProps) {
             <div className={"productElement"}>
                 <div className="produit">
                     <img id={"p"} alt={""} src={services.server + prod.logo}/>
-                    <span className="q">{prod.quantite}</span>
+                    <span id = "font" className="q">{prod.quantite}</span>
                 </div>
-                <span> {prod.name} </span>
+                <span id = "font"> {prod.name} </span>
                 <Box sx={{width: '100%'}}>
                     <ProgressBar transitionDuration={"0.1s"} customLabel={" "} completed={progress}/>
                 </Box>

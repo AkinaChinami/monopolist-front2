@@ -3,12 +3,14 @@ import './App.css';
 import {Services} from "./Services";
 import {World} from "./world";
 import ProductComponent from "./Product";
+import ManagerComponent from "./Manager";
 
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
     const [world, setWorld] = useState(new World());
     const[username, setUsername] = useState("");
+    const[showManagers,etat]= useState(false);
 
     useEffect(() => {
         let services = new Services("username")
@@ -17,8 +19,6 @@ export default function App() {
             setWorld(response.data)
         })
     }, [])
-    console.log("world",world);
-    console.log("product",world.products.product[0]);
 
     // useEffect(() => {
     //     if (username !== "") {
@@ -42,6 +42,11 @@ export default function App() {
         localStorage.setItem("username", username);
         setUsername(username);
     })
+    function afficheManager() {
+        etat(true)
+    }
+
+
     return (
         /*
       <div className="App">
@@ -64,31 +69,31 @@ export default function App() {
 
         <div className="App">
             <div className="header">
-                <div> <img id="logo" src={services.server + world.logo}/> </div>
-                <span className="nom">
+                <div> <img id="logo" src={services.server + world.logo}/>
+                <span id = "font" className="nom">
                     {world.name}
                 </span>
-                <span className="money">
+                </div>
+                <span id = "font" className="money">
                     {world.money}
                 </span>
-                <div> multiplicateur</div>
-                <div> ID du joueur</div>
+                <div id = "font"> multiplicateur</div>
+                <div id = "font"> ID du joueur</div>
             </div>
 
             <div className="main">
 
                 <div className="Menu">
-                   <ul>
+                   <ul className="options">
                        <li id="Unlocks"></li>
                        <li id="Cash Upgrades"></li>
                        <li id="Angel Upgrades"></li>
-                       <li id="Managers"></li>
+                       <li id="Managers" onClick={afficheManager}>Managers</li>
                        <li id="Investors"></li>
                    </ul>
                 </div>
 
                 <div className="product">
-
                     <div className="tente" >
                         <ProductComponent prod={world.products.product[0]} services={services}/>
                     </div>
@@ -107,7 +112,10 @@ export default function App() {
                     <div className="chateau" >
                         <ProductComponent prod={world.products.product[5]} services={services}/>
                     </div>
-
+                </div>
+                <div className="Manager">
+                    showManagers &&
+                    <ManagerComponent world={world} services={services}  afficheManager={afficheManager}/>
                 </div>
 
             </div>

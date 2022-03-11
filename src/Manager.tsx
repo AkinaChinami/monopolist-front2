@@ -1,42 +1,43 @@
 import {Button} from "@mui/material";
-import
+import {Pallier, World} from "./world";
+import {Services} from "./Services";
 
-
-import {World} from "./world";
 
 type ManagerProps = {
-    manager:Manager,
-    world:World,
+    world:World
+    services :Services
+    afficheManager():void
+}
+export default function ManagerComponent({services,world}:ManagerProps){
 
-}
-export default function ManagerComponent(world){
-    return (<div> { showManagers &&
-    <div className="modal">
-        <div>
-            <h1 className="title">Managers make you feel better !</h1>
-        </div>
-        <div>
-            {world.managers.pallier.filter( manager => !manager.unlocked).map(
-            manager =>
-            <div key={manager.idcible} className="managergrid">
+    function hireManager(manager: Pallier) {
+
+    }
+
+    return (
+            <div className="modal">
                 <div>
-                    <div className="logo">
-                        <img alt="manager logo" className="round" src= { this.props.services.server + manager.logo} />
-                    </div>
+                    <h1 className="title">Managers make you feel better !</h1>
                 </div>
-                <div className="infosmanager">
-                    <div className="managername"> { manager.name} </div>
-                    <div className="managercible"> {this.props.world.products.product[manager.idcible-1].name } </div>
-                    <div className="managercost"> { manager.seuil} </div>
+                <div>
+                    {world.managers.pallier.filter( manager => !manager.unlocked).map(
+                    manager =>
+                    <div key={manager.idcible} className="managergrid">
+                        <div>
+                            <div className="logo">
+                                <img alt="manager logo" className="round" src= { services.server + manager.logo} />
+                            </div>
+                        </div>
+                        <div className="infosmanager">
+                            <div className="managername"> { manager.name} </div>
+                            <div className="managercible"> {world.products.product[manager.idcible-1].name } </div>
+                            <div className="managercost"> { manager.seuil} </div>
+                        </div>
+                        <div onClick={() => hireManager(manager)}>
+                            <Button disabled={world.money < manager.seuil}> Hire !</Button>
+                        </div>
+                    </div>)}
                 </div>
-                <div onClick={() => this.hireManager(manager)}>
-                    <Button disabled={this.props.world.money < manager.seuil}>
-                        Hire !</Button>
-                </div>
+                <Button className="closebutton" onClick={showManagers=!showManagers}> Close </Button>
             </div>
-    )
-            <button className="closebutton" (click) ="showManagers=!showManagers">Close</button>
-    </div>
-        </div>
-    } </div> )
-}
+)}
