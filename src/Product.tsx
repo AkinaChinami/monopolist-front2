@@ -45,13 +45,8 @@ export default function ProductComponent({ prod, onProductionDone, services } : 
         <div>
             <div className={"productElement"}>
                 <div className="produit">
-<<<<<<< HEAD
-                    <img id={"p"} alt={""} src={services.server + prod.logo}/>
-                    <span id = "font" className="q">{prod.quantite}</span>
-=======
                     <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
                     <span className="q">{prod.quantite}</span>
->>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
                 </div>
                 <span id = "font"> {prod.name} </span>
                 <Box sx={{width: '100%'}}>

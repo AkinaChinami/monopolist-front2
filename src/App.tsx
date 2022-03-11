@@ -3,12 +3,9 @@ import './App.css';
 import {Services} from "./Services";
 import {Product, World} from "./world";
 import ProductComponent from "./Product";
-<<<<<<< HEAD
-import ManagerComponent from "./Manager";
-=======
-import {transform} from "./utils";
->>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
 
+import ManagerComponent from "./Manager";
+import {transform} from "./utils";
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
@@ -46,33 +43,11 @@ export default function App() {
         localStorage.setItem("username", username);
         setUsername(username);
     })
-<<<<<<< HEAD
     function afficheManager() {
         etat(true)
     }
 
 
-    return (
-        /*
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-        */
-=======
->>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
 
     function onProductionDone(p: Product): void {
         // calcul de la somme obtenue par la production du produit
@@ -92,14 +67,9 @@ export default function App() {
                 <span id = "font" className="nom">
                     {world.name}
                 </span>
-<<<<<<< HEAD
                 </div>
-                <span id = "font" className="money">
-                    {world.money}
-=======
                 <span className="money">
                     <span dangerouslySetInnerHTML={{__html: transform(world.money)}}></span>
->>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
                 </span>
                 <div id = "font"> multiplicateur</div>
                 <div id = "font"> ID du joueur</div>
