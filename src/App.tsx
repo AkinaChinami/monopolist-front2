@@ -89,27 +89,28 @@ export default function App() {
 
                 <div className="product">
                     <div className="tente" >
-                        <ProductComponent prod={world.products.product[0]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[0]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                     <div className="cabane" >
-                        <ProductComponent prod={world.products.product[1]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[1]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                     <div className="immeuble" >
-                        <ProductComponent prod={world.products.product[2]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[2]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                     <div className="maison" >
-                        <ProductComponent prod={world.products.product[3]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[3]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                     <div className="peniche" >
-                        <ProductComponent prod={world.products.product[4]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[4]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                     <div className="chateau" >
-                        <ProductComponent prod={world.products.product[5]} onProductionDone={onProductionDone} services={services}/>
+                        {/*<ProductComponent prod={world.products.product[5]} onProductionDone={onProductionDone} services={services}/>*/}
                     </div>
                 </div>
+
                 <div className="Manager">
-                    showManagers &&
-                    <ManagerComponent world={world} services={services}  afficheManager={afficheManager}/>
+                    { showManagers  &&
+                    <ManagerComponent world={world} services={services}  afficheManager={afficheManager}/>}
                 </div>
 
             </div>

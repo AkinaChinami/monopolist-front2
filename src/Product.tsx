@@ -25,6 +25,7 @@ export default function ProductComponent({ prod, onProductionDone, services } : 
     }, [])
 
     function calcScore() {
+        console.log("calc")
         if (prod.timeleft > 0) {
             prod.timeleft = (Date.now() - prod.lastupdate) - prod.timeleft
             prod.progressBarValue = ((prod.vitesse - prod.timeleft) / prod.vitesse) * 100
@@ -37,6 +38,7 @@ export default function ProductComponent({ prod, onProductionDone, services } : 
     }
 
     function startFabrication() {
+        console.log("bla")
         prod.timeleft = prod.vitesse
         prod.lastupdate = Date.now();
     }

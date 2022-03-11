@@ -38,14 +38,14 @@
   }
 }
 */
-/*@font-face {*/
-/*  font-family: 'Monopoly Regular';*/
-/*  font-style: normal;*/
-/*  font-weight: normal;*/
-/*  src: local('Monopoly Regular'), url('src/monopoly/Monopoly Regular.ttf') format('ttf');*/
-/*}*/
+@font-face {
+  font-family: 'Monopoly Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Monopoly Regular'), url('monopoly/MonopolyRegular.ttf') format('ttf');
+}
 #font{
-  /*font-family: "Monopoly Regular";*/
+  font-family: "Monopoly Regular";
   font-size: 35px ;
   font-weight: bold;
   vertical-align: middle;
@@ -66,9 +66,7 @@
 .main {
   display: grid;
   grid-template-columns: 20% 80%;
-  background-image:url("../public/Font/1_Jour.PNG");
-  backgroundRepeat: 'no-repeat';
-  background-size: 1000px;
+
 }
 
 .options{
@@ -81,7 +79,9 @@
 .product {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-
+  background: no-repeat center center  url("../public/Font/1_Jour.PNG");
+  background-size: cover;
+  min-height:100vh;
 }
 #p{
   width: 50%;
@@ -95,9 +95,8 @@
   position: absolute;
   bottom: -5px;
 }
-/*Mise en forme des managers*/
+/*Mise en forme liste des managers*/
 .modal {
-  position: fixed; /* reste en place */
   z-index: 2; /* au dessus du reste */
   width: 800px; /* largeur */
   height: 800px; /* hauteur */
