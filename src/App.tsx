@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {Services} from "./Services";
-import {World} from "./world";
+import {Product, World} from "./world";
 import ProductComponent from "./Product";
+<<<<<<< HEAD
 import ManagerComponent from "./Manager";
+=======
+import {transform} from "./utils";
+>>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
 
 
 export default function App() {
@@ -42,6 +46,7 @@ export default function App() {
         localStorage.setItem("username", username);
         setUsername(username);
     })
+<<<<<<< HEAD
     function afficheManager() {
         etat(true)
     }
@@ -66,16 +71,35 @@ export default function App() {
         </header>
       </div>
         */
+=======
+>>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
 
+    function onProductionDone(p: Product): void {
+        // calcul de la somme obtenue par la production du produit
+        let gain = p.quantite * p.revenu
+        // ajout de la somme à l’argent possédé
+        addToScore(gain)
+    }
+
+    function addToScore(gain:number) {
+        world.score += gain
+    }
+
+    return (
         <div className="App">
             <div className="header">
                 <div> <img id="logo" src={services.server + world.logo}/>
                 <span id = "font" className="nom">
                     {world.name}
                 </span>
+<<<<<<< HEAD
                 </div>
                 <span id = "font" className="money">
                     {world.money}
+=======
+                <span className="money">
+                    <span dangerouslySetInnerHTML={{__html: transform(world.money)}}></span>
+>>>>>>> 4d576a070733e5aa7eee4cfd2fbecc9b3382e937
                 </span>
                 <div id = "font"> multiplicateur</div>
                 <div id = "font"> ID du joueur</div>
@@ -95,22 +119,22 @@ export default function App() {
 
                 <div className="product">
                     <div className="tente" >
-                        <ProductComponent prod={world.products.product[0]} services={services}/>
+                        <ProductComponent prod={world.products.product[0]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="cabane" >
-                        <ProductComponent prod={world.products.product[1]} services={services}/>
+                        <ProductComponent prod={world.products.product[1]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="immeuble" >
-                        <ProductComponent prod={world.products.product[2]} services={services}/>
+                        <ProductComponent prod={world.products.product[2]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="maison" >
-                        <ProductComponent prod={world.products.product[3]} services={services}/>
+                        <ProductComponent prod={world.products.product[3]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="peniche" >
-                        <ProductComponent prod={world.products.product[4]} services={services}/>
+                        <ProductComponent prod={world.products.product[4]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                     <div className="chateau" >
-                        <ProductComponent prod={world.products.product[5]} services={services}/>
+                        <ProductComponent prod={world.products.product[5]} onProductionDone={onProductionDone} services={services}/>
                     </div>
                 </div>
                 <div className="Manager">
