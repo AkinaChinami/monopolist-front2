@@ -28,18 +28,23 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
     function startFabrication() {
         prod.timeleft = prod.vitesse
         prod.lastupdate = Date.now();
+
     }
 
     function calcScore() {
         if (prod==null) return
+        if (prod.timeleft == 0) {
+            if (prod.managerUnlocked) {startFabrication()}
+        }
         if (prod.timeleft !== 0) {
-            let date = (Date.now() - prod.lastupdate)
+            prod.timeleft -= (Date.now() - prod.lastupdate)
             prod.lastupdate = Date.now();
-            prod.timeleft -= date;
             if (prod.timeleft <= 0) {
                 prod.timeleft = 0
                 prod.progressBarValue = 0
                 onProductionDone(prod)
+                calcMaxCanBuy()
+                if (prod.managerUnlocked) {startFabrication()}
             }
             else {
                 prod.progressBarValue = ((prod.vitesse - prod.timeleft) / prod.vitesse) * 100
@@ -48,41 +53,30 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
         }
     }
 
-    const calcMaxCanBuy = () => {
-        if (qtmulti === 1) {
-            if (prod.cout * qtmulti < money) {
-                qtmulti=1
-            }
+    function calcMaxCanBuy() {
+        if (qtmulti === -1) {
+            qtmulti = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
         }
-        else if (qtmulti === 10) {
-            while (qtmulti > 10) {
-                prod.cout += prod.cout * prod.croissance
-                qtmulti -= 1
-            }
-            if (prod.cout < money) {
-                qtmulti = 10
-            }
+        let coutNProduct = prod.cout * (1 - Math.pow(prod.croissance, qtmulti))/ (1 - prod.croissance);
+        prod.quantite += qtmulti
+        if (coutNProduct < money) {
+            prod.palliers.pallier.filter(echelon => !echelon.unlocked).map(unlock => {
+                if(unlock.seuil <= prod.quantite){
+                    unlock.unlocked = true;
+                    if (unlock.typeratio === "GAIN") {
+                        prod.revenu *= unlock.ratio
+                    }
+                    else if (unlock.typeratio === "VITESSE") {
+                        prod.vitesse = prod.vitesse / unlock.ratio
+                        prod.progressBarValue = prod.progressBarValue / unlock.ratio
+                        prod.timeleft = prod.timeleft / 2
+                        setProgress(prod.progressBarValue)
+                    }
+                }
+            })
         }
-        else if (qtmulti === 100) {
-            while (qtmulti > 100) {
-                prod.cout += prod.cout * prod.croissance
-                qtmulti -= 1
-            }
-            if (prod.cout < money) {
-                qtmulti = 100
-            }
-        }
-        else {
-            let n = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
-            if (n < money) {
-                qtmulti = n
-            }
-        }
+        onProductBuy(coutNProduct, prod)
     }
-    //
-    // const buy = () => {
-    //
-    // }
 
     if(prod==null) return (<div/>)
     else {
@@ -91,13 +85,14 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
                 <div className={"productElement"}>
                     <div className="produit">
                         <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
-                        <span className="q">{prod.quantite}</span>
+                        <span className="q">Quantité : {prod.quantite}</span>
+                        <button onClick={calcMaxCanBuy}>Buy : {prod.croissance}</button>
+                        <span id="font"> {prod.name} </span>
+                        <div>Temps : {prod.vitesse}</div>
                     </div>
-                    <span id="font"> {prod.name} </span>
                     <Box sx={{width: '100%'}}>
                         <ProgressBar transitionDuration={"0.1s"} customLabel={" "} completed={progress}/>
                     </Box>
-
                 </div>
             </div>
         )

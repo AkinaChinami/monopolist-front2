@@ -62,6 +62,7 @@ export default function App() {
         let gain = p.revenu * p.quantite
         // ajout de la somme à l’argent possédé
         addToScore(gain)
+        addToMoney(gain)
     }
 
     function addToScore(gain:number): void {
@@ -73,7 +74,8 @@ export default function App() {
     }
 
     function onProductBuy(qt: number, product: Product): void {
-
+        //addToMoney(-qt)
+        console.log("qt:", qt)
     }
     function changeMult(){
         let b = document.getElementById("commutateur")
@@ -113,7 +115,6 @@ export default function App() {
                     <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/>
                 </span>
                 <Button id = "commutateur" onClick={changeMult}>X{qtmulti}</Button>
-                <div id = "font"> ID du joueur</div>
             </div>
 
             <div className="main">
