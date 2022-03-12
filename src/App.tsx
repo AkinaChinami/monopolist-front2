@@ -10,9 +10,8 @@ import {transform} from "./utils";
 export default function App() {
     const [services, setServices] = useState(new Services(""));
     const [world, setWorld] = useState(new World());
-    const[username, setUsername] = useState("");
-    const[showManagers,etat]= useState(false);
-    const [qtmulti, setQtmulti] = useState(0);
+    const [showManagers,etat]= useState(false);
+    const [qtmulti, setQtmulti] = useState(1);
 
     useEffect(() => {
         let services = new Services("username")
@@ -22,69 +21,55 @@ export default function App() {
         })
     }, [])
 
-    // useEffect(() => {
-    //     if (username !== "") {
-    //         let services = new Services(username)
-    //         setServices(services)
-    //         services.getWorld().then(response => {
-    //             let liste = compute.unlocks.list(response.data)
-    //             setWorld(response.data)
-    //             setUnlockList(liste)
-    //         })
-    //
-    //     }
-    //
-    // })
-
-    useEffect(() => {
-        let username = localStorage.getItem("username");
-        if(!username || username === "") {
-            username = "Captain" + Math.floor(Math.random()*10000);
-        }
-        localStorage.setItem("username", username);
-        setUsername(username);
-    })
     function afficheManager() {
         etat(true)
     }
 
     function onProductionDone(p: Product): void {
         // calcul de la somme obtenue par la production du produit
-        let gain = p.revenu
+        let gain = p.revenu * p.quantite
         // ajout de la somme à l’argent possédé
         addToScore(gain)
     }
 
     function addToScore(gain:number): void {
-        setWorld(world => ({...world, money: world.money+gain, score:world.score+gain}))
+        setWorld(world => ({...world, score:world.score+gain}))
+    }
+
+    function addToMoney(gain:number):void {
+        setWorld(world => ({...world, money: world.money+gain}))
+    }
+
+    function onProductBuy(qt: number, product: Product): void {
+
     }
 
     return (
         <div className="App">
             <div className="header">
-                <div> <img id="logo" src={services.server + world.logo}/>
+                <div> <img alt="logo" id="logo" src={services.server + world.logo}/>
                 <span id = "font" className="nom">
                     {world.name}
                 </span>
                 </div>
                 <span className="money">
-                    <span dangerouslySetInnerHTML={{__html: transform(world.money)}}></span>
-                </span><span className="score">
-                    <span dangerouslySetInnerHTML={{__html: transform(world.score)}}></span>
+                    <span dangerouslySetInnerHTML={{__html: transform(world.money)}}/>
+                </span>
+                <span className="score">
+                    <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/>
                 </span>
                 <div id = "font"> multiplicateur</div>
-                <div id = "font"> ID du joueur</div>
             </div>
 
             <div className="main">
 
                 <div className="Menu">
                    <ul className="options">
-                       <li id="Unlocks"></li>
-                       <li id="Cash Upgrades"></li>
-                       <li id="Angel Upgrades"></li>
+                       <li id="Unlocks"/>
+                       <li id="Cash Upgrades"/>
+                       <li id="Angel Upgrades"/>
                        <li id="Managers" onClick={afficheManager}>Managers</li>
-                       <li id="Investors"></li>
+                       <li id="Investors"/>
                    </ul>
                 </div>
 
@@ -95,6 +80,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                     <div className="cabane" >
@@ -103,6 +89,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                     <div className="immeuble" >
@@ -111,6 +98,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                     <div className="maison" >
@@ -119,6 +107,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                     <div className="peniche" >
@@ -127,6 +116,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                     <div className="chateau" >
@@ -135,6 +125,7 @@ export default function App() {
                             onProductionDone={onProductionDone}
                             qtmulti={qtmulti}
                             money={world.money}
+                            onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
                 </div>
