@@ -46,14 +46,14 @@
 }
 #font{
   font-family: "Monopoly Regular";
-  font-size: 35px ;
+  font-size: 30px ;
   font-weight: bold;
   vertical-align: middle;
 }
 /*Mise en forme du Header*/
 .header {
   display: grid;
-  grid-template-columns: 30% 20% 25% 25% ;
+  grid-template-columns: 10% 10% 10% 10% 10% ;
 }
 #logo {
   width: 40%;

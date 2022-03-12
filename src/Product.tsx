@@ -1,5 +1,6 @@
 import {Services} from "./Services";
 import {Product, World} from "./world";
+import {Manager} from "./Manager";
 import {Box} from "@mui/material";
 import ProgressBar from "./ProgressBar";
 import {useEffect, useRef, useState} from "react";
@@ -10,10 +11,11 @@ type ProductProps = {
     onProductionDone: (product: Product) => void,
     qtmulti: number,
     money: number,
-    services: Services
+    services: Services,
+    manager:Manager,
 }
 
-export default function ProductComponent({ prod, onProductionDone, qtmulti, money, services } : ProductProps) {
+export default function ProductComponent({ prod, onProductionDone, qtmulti, money, services,manager } : ProductProps) {
     const [progress, setProgress] = useState(0)
 
     const calcScore = () => {
@@ -30,6 +32,11 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
                 prod.timeleft = 0
                 prod.progressBarValue = 0
                 onProductionDone(prod)
+            }
+            if (manager.unlocked==true){
+                prod.timeleft -= (Date.now() - prod.lastupdate)
+                prod.progressBarValue = ((prod.vitesse - prod.timeleft) / prod.vitesse) * 100
+                setProgress(prod.progressBarValue)
             }
 
         }
