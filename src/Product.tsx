@@ -1,5 +1,6 @@
 import {Services} from "./Services";
 import {Product} from "./world";
+import {Manager} from "./Manager";
 import {Box} from "@mui/material";
 import ProgressBar from "./ProgressBar";
 import {useEffect, useRef, useState} from "react";
@@ -16,7 +17,6 @@ type ProductProps = {
 
 export default function ProductComponent({ prod, onProductionDone, qtmulti, money, onProductBuy, services } : ProductProps) {
     const [progress, setProgress] = useState(0)
-
     const savedCallback = useRef(calcScore)
     useEffect(() => savedCallback.current = calcScore)
     useEffect(() => {

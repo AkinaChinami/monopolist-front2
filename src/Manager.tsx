@@ -7,11 +7,16 @@ type ManagerProps = {
     world:World
     services :Services
     afficheManager():void
+    hideManager():void
 }
-export default function ManagerComponent({services,world}:ManagerProps){
-
+export default function ManagerComponent({services,world,hideManager}:ManagerProps){
 
     function hireManager(manager: Pallier) {
+        if(world.money > manager.seuil){
+            world.money=world.money-manager.seuil
+            manager.unlocked=true
+
+        }
 
     }
 
@@ -39,6 +44,9 @@ export default function ManagerComponent({services,world}:ManagerProps){
                         </div>
                     </div>)}
                 </div>
-                {/*<Button className="closebutton" onClick={showManagers=!showManagers}> Close </Button>*/}
+                <Button className="closebutton" onClick={hideManager}> Close </Button>
             </div>
 )}
+
+export class Manager {
+}

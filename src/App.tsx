@@ -6,6 +6,7 @@ import ProductComponent from "./Product";
 
 import ManagerComponent from "./Manager";
 import {transform} from "./utils";
+import {Button} from "@mui/material";
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
@@ -23,6 +24,9 @@ export default function App() {
 
     function afficheManager() {
         etat(true)
+    }
+    function hideManager(){
+        etat(false)
     }
 
     function onProductionDone(p: Product): void {
@@ -43,6 +47,28 @@ export default function App() {
     function onProductBuy(qt: number, product: Product): void {
 
     }
+    function changeMult(){
+        let b = document.getElementById("commutateur")
+        if (b) {
+            if (b.textContent === "x1") {
+                b.textContent = "x10"
+                setQtmulti(10)
+            }
+            else if (b.textContent === "x10"){
+                b.textContent = "x100"
+                setQtmulti(100)
+            }
+            else if (b.textContent === "x100"){
+                b.textContent = "xMax"
+                setQtmulti(-1)
+            }
+            else{
+                b.textContent = "x1"
+                setQtmulti(1)
+            }
+        }
+    }
+
 
     return (
         <div className="App">
@@ -52,24 +78,25 @@ export default function App() {
                     {world.name}
                 </span>
                 </div>
-                <span className="money">
+                <span id = "font" className="money">
                     <span dangerouslySetInnerHTML={{__html: transform(world.money)}}/>
                 </span>
-                <span className="score">
+                <span id = "font" className="score">
                     <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/>
                 </span>
-                <div id = "font"> multiplicateur</div>
+                <Button id = "commutateur" onClick={changeMult}>X{qtmulti}</Button>
+                <div id = "font"> ID du joueur</div>
             </div>
 
             <div className="main">
 
                 <div className="Menu">
                    <ul className="options">
-                       <li id="Unlocks"/>
-                       <li id="Cash Upgrades"/>
-                       <li id="Angel Upgrades"/>
+                       <li id="Unlocks">Unlocks</li>
+                       <li id="Cash Upgrades">Cash Upgrades</li>
+                       <li id="Angel Upgrades">Angel Upgrades</li>
                        <li id="Managers" onClick={afficheManager}>Managers</li>
-                       <li id="Investors"/>
+                       <li id="Investors">Investors</li>
                    </ul>
                 </div>
 
@@ -132,7 +159,12 @@ export default function App() {
 
                 <div className="Manager">
                     { showManagers  &&
-                    <ManagerComponent world={world} services={services}  afficheManager={afficheManager}/>}
+                    <ManagerComponent
+                        world={world}
+                        services={services}
+                        afficheManager={afficheManager}
+                        hideManager={hideManager}
+                    />}
                 </div>
 
             </div>
