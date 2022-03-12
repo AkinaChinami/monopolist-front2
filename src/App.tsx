@@ -7,6 +7,7 @@ import ProductComponent from "./Product";
 import ManagerComponent from "./Manager";
 import {transform} from "./utils";
 import {Button} from "@mui/material";
+import CashUpgradeComponent, {CashUpgrade} from "./CashUpgrade";
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
@@ -194,6 +195,26 @@ export default function App() {
                         afficheManager={openManagers}
                         hideManager={hideManagers}
                     />}
+                </div>
+
+                <div>
+                    { showCashUpgrade &&
+                    <CashUpgradeComponent
+                        world={world}
+                        services={services}
+                        afficheUpgrade={openCashUpgrades}
+                        hideUpgrade={hideCashUpgrades}
+                    />}
+                </div>
+
+                <div>
+                    { showAngelUpgrade &&
+                        <CashUpgradeComponent
+                            world={world}
+                            services={services}
+                            afficheUpgrade={openAngelUpgrade}
+                            hideUpgrade={openAngelUpgrade}
+                        />}
                 </div>
 
             </div>
