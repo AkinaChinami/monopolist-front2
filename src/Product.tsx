@@ -1,6 +1,5 @@
 import {Services} from "./Services";
 import {Product} from "./world";
-import {Manager} from "./Manager";
 import {Box} from "@mui/material";
 import ProgressBar from "./ProgressBar";
 import {useEffect, useRef, useState} from "react";
@@ -56,12 +55,20 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
             }
         }
         else if (qtmulti === 10) {
-            if (prod.cout * qtmulti) {
+            while (qtmulti > 10) {
+                prod.cout += prod.cout * prod.croissance
+                qtmulti -= 1
+            }
+            if (prod.cout < money) {
                 qtmulti = 10
             }
         }
         else if (qtmulti === 100) {
-            if (prod.cout * qtmulti) {
+            while (qtmulti > 100) {
+                prod.cout += prod.cout * prod.croissance
+                qtmulti -= 1
+            }
+            if (prod.cout < money) {
                 qtmulti = 100
             }
         }
@@ -72,6 +79,10 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
             }
         }
     }
+    //
+    // const buy = () => {
+    //
+    // }
 
     if(prod==null) return (<div/>)
     else {

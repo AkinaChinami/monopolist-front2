@@ -11,7 +11,11 @@ import {Button} from "@mui/material";
 export default function App() {
     const [services, setServices] = useState(new Services(""));
     const [world, setWorld] = useState(new World());
-    const [showManagers,etat]= useState(false);
+    const [showUnlocks, setShowUnlocks]= useState(false);
+    const [showCashUpgrade, setShowCashUpgrade]= useState(false);
+    const [showAngelUpgrade, setShowAngelUpgrade]= useState(false);
+    const [showManagers, setShowManagers]= useState(false);
+    const [showInvestors, setShowInvestors]= useState(false);
     const [qtmulti, setQtmulti] = useState(1);
 
     useEffect(() => {
@@ -22,11 +26,35 @@ export default function App() {
         })
     }, [])
 
-    function afficheManager() {
-        etat(true)
+    function openUnlocks() {
+        setShowUnlocks(true);
     }
-    function hideManager(){
-        etat(false)
+    function hideUnlocks() {
+        setShowUnlocks(false);
+    }
+    function openCashUpgrades() {
+        setShowCashUpgrade(true);
+    }
+    function hideCashUpgrades() {
+        setShowCashUpgrade(false);
+    }
+    function openAngelUpgrade() {
+        setShowAngelUpgrade(true);
+    }
+    function hideAngelUpgrade() {
+        setShowAngelUpgrade(false);
+    }
+    function openManagers() {
+        setShowManagers(true);
+    }
+    function hideManagers() {
+        setShowManagers(false);
+    }
+    function openInvestors() {
+        setShowInvestors(true);
+    }
+    function hideInvestors() {
+        setShowInvestors(false);
     }
 
     function onProductionDone(p: Product): void {
@@ -49,7 +77,7 @@ export default function App() {
     }
     function changeMult(){
         let b = document.getElementById("commutateur")
-        if (b) {
+        if (b!==null) {
             if (b.textContent === "x1") {
                 b.textContent = "x10"
                 setQtmulti(10)
@@ -92,11 +120,11 @@ export default function App() {
 
                 <div className="Menu">
                    <ul className="options">
-                       <li id="Unlocks">Unlocks</li>
-                       <li id="Cash Upgrades">Cash Upgrades</li>
-                       <li id="Angel Upgrades">Angel Upgrades</li>
-                       <li id="Managers" onClick={afficheManager}>Managers</li>
-                       <li id="Investors">Investors</li>
+                       <li id="Unlocks" onClick={openUnlocks}>Unlocks</li>
+                       <li id="CashUpgrades" onClick={openCashUpgrades}>Cash Upgrades</li>
+                       <li id="AngelUpgrades" onClick={openAngelUpgrade}>Angel Upgrades</li>
+                       <li id="Managers" onClick={openManagers}>Managers</li>
+                       <li id="Investors" onClick={openInvestors}>Investors</li>
                    </ul>
                 </div>
 
@@ -162,8 +190,8 @@ export default function App() {
                     <ManagerComponent
                         world={world}
                         services={services}
-                        afficheManager={afficheManager}
-                        hideManager={hideManager}
+                        afficheManager={openManagers}
+                        hideManager={hideManagers}
                     />}
                 </div>
 
