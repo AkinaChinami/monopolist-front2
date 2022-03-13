@@ -54,28 +54,32 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
     }
 
     function calcMaxCanBuy() {
-        if (qtmulti === -1) {
-            qtmulti = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
-        }
-        let coutNProduct = prod.cout * (1 - Math.pow(prod.croissance, qtmulti))/ (1 - prod.croissance);
+        qtmulti = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
+        return qtmulti
+    }
+
+    function coutNProduct(quantite:number) {
+        return prod.cout * (1 - Math.pow(prod.croissance, quantite))/ (1 - prod.croissance);
+    }
+
+    function canBuyOrNot() {
         prod.quantite += qtmulti
-        if (coutNProduct < money) {
-            prod.palliers.pallier.filter(echelon => !echelon.unlocked).map(unlock => {
-                if(unlock.seuil <= prod.quantite){
-                    unlock.unlocked = true;
-                    if (unlock.typeratio === "GAIN") {
-                        prod.revenu *= unlock.ratio
-                    }
-                    else if (unlock.typeratio === "VITESSE") {
-                        prod.vitesse = prod.vitesse / unlock.ratio
-                        prod.progressBarValue = prod.progressBarValue / unlock.ratio
-                        prod.timeleft = prod.timeleft / 2
-                        setProgress(prod.progressBarValue)
-                    }
+        prod.palliers.pallier.filter(echelon => !echelon.unlocked).map(unlock => {
+            if(unlock.seuil <= prod.quantite){
+                unlock.unlocked = true;
+                if (unlock.typeratio === "GAIN") {
+                    prod.revenu *= unlock.ratio
                 }
-            })
-        }
-        onProductBuy(coutNProduct, prod)
+                else if (unlock.typeratio === "VITESSE") {
+                    prod.vitesse /= unlock.ratio
+                    prod.progressBarValue /= unlock.ratio
+                    prod.timeleft /= 2
+                    setProgress(prod.progressBarValue)
+                }
+            }
+        })
+        let coutFinal = coutNProduct(qtmulti)
+        onProductBuy(coutFinal, prod)
     }
 
     if(prod==null) return (<div/>)
@@ -86,7 +90,9 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
                     <div className="produit">
                         <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
                         <span className="q">Quantité : {prod.quantite}</span>
-                        <button onClick={calcMaxCanBuy}>Buy : {prod.croissance}</button>
+                        <button type="button" onClick={canBuyOrNot} disabled={money < coutNProduct(qtmulti) || qtmulti==0}>
+                            x{qtmulti} Prix: {coutNProduct(qtmulti)}
+                        </button>
                         <span id="font"> {prod.name} </span>
                         <div>Temps : {prod.vitesse}</div>
                     </div>

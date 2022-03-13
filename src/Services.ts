@@ -29,7 +29,7 @@ export class Services {
             headers: Services.setHeaders(this.user)
         }).catch(Services.handleError)
     }
-/*
+
     putManager(manager : Pallier) : AxiosPromise<Response> {
         return axios({
             method: 'put',
@@ -56,13 +56,13 @@ export class Services {
             headers: Services.setHeaders(this.user)
         }).catch(Services.handleError)
     }
-*/
- /*   deleteWorld(world : World) : AxiosPromise<Response> {
+
+    deleteWorld(world : World): AxiosPromise<Response> {
         return axios({
             method: 'delete',
             url: this.api + '/world',
             data: world,
             headers: Services.setHeaders(this.user)
         }).catch(Services.handleError)
-    }*/
+    }
 }

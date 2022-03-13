@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {Services} from "./Services";
-import {Product, World} from "./world";
+import {Pallier, Product, World} from "./world";
 import ProductComponent from "./Product";
 
-import ManagerComponent from "./Manager";
+import ManagerComponent, {Manager} from "./Manager";
 import {transform} from "./utils";
 import {Button} from "@mui/material";
 import CashUpgradeComponent, {CashUpgrade} from "./CashUpgrade";
@@ -62,22 +62,29 @@ export default function App() {
         // calcul de la somme obtenue par la production du produit
         let gain = p.revenu * p.quantite
         // ajout de la somme à l’argent possédé
-        addToScore(gain)
-        addToMoney(gain)
+        updateToScore(gain)
+        updateToMoney(gain)
+        services.putProduct(p)
     }
 
-    function addToScore(gain:number): void {
+    function updateToScore(gain:number): void {
         setWorld(world => ({...world, score:world.score+gain}))
     }
 
-    function addToMoney(gain:number):void {
+    function updateToMoney(gain:number):void {
         setWorld(world => ({...world, money: world.money+gain}))
     }
 
     function onProductBuy(qt: number, product: Product): void {
-        //addToMoney(-qt)
-        console.log("qt:", qt)
+        updateToMoney(-qt)
+        services.putProduct(product)
     }
+
+    function onManagerBuy(seuil: number, manager: Pallier): void {
+        updateToMoney(-seuil)
+        services.putManager(manager)
+    }
+
     function changeMult(){
         let b = document.getElementById("commutateur")
         if (b!==null) {
