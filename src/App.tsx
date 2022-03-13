@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {Services} from "./Services";
-import {Pallier, Product, World} from "./world";
+import {Product,Pallier,World} from "./world";
 import ProductComponent from "./Product";
-
-import ManagerComponent, {Manager} from "./Manager";
+import ManagerComponent from "./Manager";
 import {transform} from "./utils";
 import {Button} from "@mui/material";
-import CashUpgradeComponent, {CashUpgrade} from "./CashUpgrade";
+import CashUpgradeComponent from "./CashUpgrade";
+import UnlockComponent from "./Unlock";
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
     const [world, setWorld] = useState(new World());
+    const [prod,setProduct]= useState(new Product());
+    const [pallier,setPallier]= useState(new Pallier());
     const [showUnlocks, setShowUnlocks]= useState(false);
     const [showCashUpgrade, setShowCashUpgrade]= useState(false);
     const [showAngelUpgrade, setShowAngelUpgrade]= useState(false);
@@ -29,6 +31,9 @@ export default function App() {
 
     function openUnlocks() {
         setShowUnlocks(true);
+        if(prod.quantite>pallier.seuil){
+            pallier.unlocked=true
+        }
     }
     function hideUnlocks() {
         setShowUnlocks(false);
@@ -109,7 +114,7 @@ export default function App() {
 
 
     return (
-        <div className="App">
+        <div id={"font"} className="App">
             <div className="header">
                 <div> <img alt="logo" id="logo" src={services.server + world.logo}/>
                 <span id = "font" className="nom">
@@ -203,7 +208,15 @@ export default function App() {
                         hideManager={hideManagers}
                     />}
                 </div>
-
+                <div className="Unlock">
+                    { showUnlocks &&
+                    <UnlockComponent
+                        prod={prod}
+                        services={services}
+                        afficheUnlock={openUnlocks}
+                        hideUnlock={hideUnlocks}
+                    />}
+                </div>
                 <div>
                     { showCashUpgrade &&
                     <CashUpgradeComponent
