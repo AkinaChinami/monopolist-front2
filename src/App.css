@@ -53,10 +53,10 @@
 /*Mise en forme du Header*/
 .header {
   display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% ;
+  grid-template-columns: 30% 20% 25% 25%  ;
 }
 #logo {
-  width: 40%;
+  width: 50%;
   /*max-height: 10%;*/
   vertical-align: middle;
   border-radius: 50%;
@@ -100,8 +100,12 @@
   z-index: 2; /* au dessus du reste */
   width: 800px; /* largeur */
   height: 800px; /* hauteur */
-  overflow: auto; /* barre de scroll si besoin */ background-color: white; /* opaque */
+  overflow: auto; /* barre de scroll si besoin */
+  background-color: white; /* opaque */
   border: solid;
   top:10; /* a 10% du haut */
   left:20%; /* a 20% de la gauche */
+}
+.managerIcon{
+  width: 70%;
 }
