@@ -174,7 +174,7 @@ export default function App() {
                 <span id = "font" className="score">
                     <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/>
                 </span>
-                <button  className = "commutateur" onClick={changeMult}>X{qtmulti}</button>
+                <Button id="commutateur" className = "commutateur" onClick={changeMult}>X{qtmulti}</Button>
             </div>
 
             <div className="main">

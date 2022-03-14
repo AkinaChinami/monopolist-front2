@@ -18,6 +18,7 @@ type ProductProps = {
 export default function ProductComponent({ prod, onProductionDone, qtmulti, money, onProductBuy, services, checkUnlocks } : ProductProps) {
     const [progress, setProgress] = useState(0)
     const savedCallback = useRef(calcScore)
+    calcMaxCanBuy()
     useEffect(() => savedCallback.current = calcScore)
     useEffect(() => {
         let timer = setInterval(() => savedCallback.current(), 100)
@@ -44,7 +45,6 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
                 prod.timeleft = 0
                 prod.progressBarValue = 0
                 onProductionDone(prod)
-                calcMaxCanBuy()
                 if (prod.managerUnlocked) {startFabrication()}
             }
             else {
@@ -55,8 +55,18 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
     }
 
     function calcMaxCanBuy() {
-        qtmulti = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
-        return qtmulti
+        if (qtmulti === 1) {
+            qtmulti = 1
+        }
+        else if (qtmulti === 10) {
+            qtmulti = 10
+        }
+        else if (qtmulti === 100) {
+            qtmulti = 100
+        }
+        else {
+            qtmulti = Math.floor(Math.log(1 - money * (1 - prod.croissance) / prod.cout) / Math.log(prod.croissance))
+        }
     }
 
     function coutNProduct(quantite:number) {
