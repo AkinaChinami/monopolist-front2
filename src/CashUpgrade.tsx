@@ -1,6 +1,7 @@
-import {Button} from "@mui/material";
-import {World} from "./world";
+import {Alert, Button, Snackbar} from "@mui/material";
+import {Pallier, World} from "./world";
 import {Services} from "./Services";
+import {useState} from "react";
 
 
 type upgradeProps = {
@@ -10,9 +11,17 @@ type upgradeProps = {
     hideUpgrade():void
 }
 export default function CashUpgradeComponent({services,world,hideUpgrade}:upgradeProps){
+    const [open, setOpen] = useState(false);
 
+    function newUpgrade(upgrade:Pallier) {
+        if(world.money > upgrade.seuil){
+            world.money=world.money-upgrade.seuil
+            upgrade.unlocked=true
+            setOpen(true)
+        }
+    }
     return (
-        <div className="modal">
+        <div id={"font"} className="modal">
             <div>
                 <h1 className="title">Cash Upgrade !</h1>
             </div>
@@ -22,21 +31,23 @@ export default function CashUpgradeComponent({services,world,hideUpgrade}:upgrad
                         <div key={upgrade.idcible} className="cashUpgradegrid">
                             <div>
                                 <div className="logo">
-                                    <img alt="cashUpgrade logo" className="round" src= { services.server + upgrade.logo} />
+                                    <img alt="cashUpgrade logo" className="upgradeIcon" src= { services.server + upgrade.logo} />
                                 </div>
                             </div>
                             <div className="infoscashUpgrade">
-                                <div className="cashUpgradename"> {upgrade.name} </div>
-                                <div className="cashUpgradecible"> {world.upgrades.pallier[upgrade.idcible-1].name } </div>
+                                <div className="cashUpgradename"> Upgrade de {upgrade.name} </div>
                                 <div className="cashUpgradecost"> {upgrade.seuil} </div>
                             </div>
-                            {/*<div onClick={() => (manager)}>*/}
-                            {/*    <Button disabled={world.money < manager.seuil}> Hire !</Button>*/}
-                            {/*</div>*/}
+                            <div onClick={() => newUpgrade(upgrade)}>
+                                <Button disabled={world.money < upgrade.seuil}> Buy </Button>
+                                <Snackbar open={open} autoHideDuration={6000} >
+                                    <Alert  severity="success" sx={{ width: '100%' }}>
+                                        You have a new upgrade !!
+                                    </Alert>
+                                </Snackbar>
+                            </div>
                         </div>)}
             </div>
             <Button className="closebutton" onClick={hideUpgrade}> Close </Button>
         </div>
     )}
-
-export class CashUpgrade {}
