@@ -1,14 +1,15 @@
 import {Button} from "@mui/material";
-import {Product} from "./world";
+import {Product, World} from "./world";
 import {Services} from "./Services";
 
 type upgradeProps = {
+    world: World
     prod:Product
     services :Services
     afficheUnlock():void
     hideUnlock():void
 }
-export default function UnlockComponent({services,prod,hideUnlock}:upgradeProps){
+export default function UnlockComponent({world, services,prod,hideUnlock}:upgradeProps){
 
     return (
         <div id={"font"} className="modal">
@@ -16,20 +17,22 @@ export default function UnlockComponent({services,prod,hideUnlock}:upgradeProps)
                 <h1 className="title">Unlock !</h1>
             </div>
             <div>
-                {prod.palliers.pallier.filter(pallier => !pallier.unlocked).map(
-                    pallier =>
-                        <div key={pallier.idcible} className="unlock">
+                {world.products.product.map( product =>
+                    product.palliers.pallier.map( unlock =>
+                        <div key={unlock.idcible} className="unlock">
                             <div>
                                 <div className="logo">
-                                    <img alt="unlock logo" className="unlockIcon" src= { services.server + pallier.logo} />
+                                    <img alt="unlock logo" className="unlockIcon" src= { services.server + unlock.logo} />
                                 </div>
                             </div>
                             <div className="infoscashUnlock">
-                                <div className="Unlockname"> {pallier.name} </div>
-                                <div className="Unlockcost"> {pallier.seuil} </div>
-                                <div className={"Unlocktype"}> {pallier.ratio +pallier.typeratio}</div>
+                                <div className="Unlockname"> {unlock.name} </div>
+                                <div className="Unlockcost"> {unlock.seuil} </div>
+                                <div className={"Unlocktype"}> {unlock.ratio +unlock.typeratio}</div>
                             </div>
-                        </div>)}
+                        </div>
+                    )
+                )}
             </div>
             <Button className="closebutton" onClick={hideUnlock}> Close </Button>
         </div>

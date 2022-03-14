@@ -9,8 +9,9 @@ type upgradeProps = {
     services :Services
     afficheUpgrade():void
     hideUpgrade():void
+    checkUpgrade():void
 }
-export default function CashUpgradeComponent({services,world,hideUpgrade}:upgradeProps){
+export default function CashUpgradeComponent({services,world,hideUpgrade, checkUpgrade}:upgradeProps){
     const [open, setOpen] = useState(false);
 
     function newUpgrade(upgrade:Pallier) {
