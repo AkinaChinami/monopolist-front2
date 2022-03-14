@@ -11,10 +11,11 @@ type ProductProps = {
     qtmulti: number,
     money: number,
     onProductBuy: (quantite: number, product: Product) => void,
-    services: Services
+    services: Services,
+    checkUnlocks: (seuil : number) => void
 }
 
-export default function ProductComponent({ prod, onProductionDone, qtmulti, money, onProductBuy, services } : ProductProps) {
+export default function ProductComponent({ prod, onProductionDone, qtmulti, money, onProductBuy, services, checkUnlocks } : ProductProps) {
     const [progress, setProgress] = useState(0)
     const savedCallback = useRef(calcScore)
     useEffect(() => savedCallback.current = calcScore)
@@ -64,7 +65,7 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
 
     function canBuyOrNot() {
         prod.quantite += qtmulti
-        prod.palliers.pallier.filter(echelon => !echelon.unlocked).map(unlock => {
+        prod.palliers.pallier.filter(seuil => !seuil.unlocked).map(unlock => {
             if(unlock.seuil <= prod.quantite){
                 unlock.unlocked = true;
                 if (unlock.typeratio === "GAIN") {

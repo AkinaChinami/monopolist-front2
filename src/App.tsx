@@ -8,6 +8,7 @@ import {transform} from "./utils";
 import {Button} from "@mui/material";
 import CashUpgradeComponent from "./CashUpgrade";
 import UnlockComponent from "./Unlock";
+import AngelComponent from "./Angel";
 
 export default function App() {
     const [services, setServices] = useState(new Services(""));
@@ -112,6 +113,52 @@ export default function App() {
         }
     }
 
+    function checkUnlocks(seuil: number){
+        let unlocked = true;
+        world.products.product.map(produit =>
+            produit.palliers.pallier.map(pallier =>
+                {
+                    if(pallier.seuil == seuil){
+                        if(!pallier.unlocked){
+                            unlocked = false;
+                        }
+                    }
+                }
+            )
+        )
+    }
+
+    function checkUpgrade(){
+        world.upgrades.pallier.map(upgrade =>{
+            if (upgrade.idcible == prod.id){
+                if (upgrade.unlocked){
+                    if (upgrade.typeratio == "VITESSE"){
+                        prod.vitesse = prod.vitesse / upgrade.ratio
+                        prod.progressBarValue = prod.progressBarValue / upgrade.ratio
+                        prod.timeleft = prod.timeleft / upgrade.ratio
+                    }
+                    else if (upgrade.typeratio == "GAIN"){
+                        prod.revenu = prod.revenu * upgrade.ratio
+                    }
+                }
+            }
+            else if(upgrade.idcible ==0){
+                if (upgrade.unlocked){
+                    world.products.product.map(p => {
+                        if (upgrade.typeratio == "VITESSE") {
+                            p.vitesse = p.vitesse / upgrade.ratio
+                            p.progressBarValue = p.progressBarValue / upgrade.ratio
+                            p.timeleft = p.timeleft / upgrade.ratio
+                        } else if (upgrade.typeratio == "GAIN") {
+                            p.revenu = p.revenu * upgrade.ratio
+                        }
+                    })
+                }
+            }
+            upgrade.ratio = 1
+        })
+    }
+
 
     return (
         <div id={"font"} className="App">
@@ -135,10 +182,9 @@ export default function App() {
                 <div className="Menu">
                    <ul className="options">
                        <li id="Unlocks" onClick={openUnlocks}>Unlocks</li>
+                       <li id="Managers" onClick={openManagers}>Managers</li>
                        <li id="CashUpgrades" onClick={openCashUpgrades}>Cash Upgrades</li>
                        <li id="AngelUpgrades" onClick={openAngelUpgrade}>Angel Upgrades</li>
-                       <li id="Managers" onClick={openManagers}>Managers</li>
-                       <li id="Investors" onClick={openInvestors}>Investors</li>
                    </ul>
                 </div>
 
@@ -150,7 +196,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                     <div id="prod" className="cabane" >
                         <ProductComponent
@@ -159,7 +206,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                     <div id="prod" className="immeuble" >
                         <ProductComponent
@@ -168,7 +216,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                     <div id="prod" className="maison" >
                         <ProductComponent
@@ -177,7 +226,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                     <div id="prod" className="peniche" >
                         <ProductComponent
@@ -186,7 +236,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                     <div id="prod" className="chateau" >
                         <ProductComponent
@@ -195,7 +246,8 @@ export default function App() {
                             qtmulti={qtmulti}
                             money={world.money}
                             onProductBuy={onProductBuy}
-                            services={services}/>
+                            services={services}
+                            checkUnlocks={checkUnlocks}/>
                     </div>
                 </div>
 
@@ -211,6 +263,7 @@ export default function App() {
                 <div className="Unlock">
                     { showUnlocks &&
                     <UnlockComponent
+                        world={world}
                         prod={prod}
                         services={services}
                         afficheUnlock={openUnlocks}
@@ -224,16 +277,17 @@ export default function App() {
                         services={services}
                         afficheUpgrade={openCashUpgrades}
                         hideUpgrade={hideCashUpgrades}
+                        checkUpgrade={checkUpgrade}
                     />}
                 </div>
 
                 <div>
                     { showAngelUpgrade &&
-                        <CashUpgradeComponent
+                        <AngelComponent
                             world={world}
                             services={services}
-                            afficheUpgrade={openAngelUpgrade}
-                            hideUpgrade={openAngelUpgrade}
+                            afficheAngel={openAngelUpgrade}
+                            hideAngel={openAngelUpgrade}
                         />}
                 </div>
 
