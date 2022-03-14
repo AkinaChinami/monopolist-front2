@@ -65,20 +65,11 @@
   border-radius: 50%;
 }
 
-
-.main {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  background-color: #f4f4f4;
+.commutateur{
 
 }
 
-.options{
-  list-style: none;
-  font-size: 35px ;
-  font-weight: bold;
-  vertical-align: middle;
-}
+
 /*Mise en forme des produits*/
 .product {
   display: grid;
@@ -87,7 +78,6 @@
   background: no-repeat center center  url("../public/Font/1_Jour.PNG");
   background-size: cover;
   min-height:100vh;
-  /*color: #db001c;*/
   font-size: 20px ;
 }
 
@@ -111,7 +101,21 @@
   text-align: center;
 }
 
-/*Mise en forme liste des managers*/
+/*Mise en forme du main*/
+.main {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  background-color: #f4f4f4;
+
+}
+
+.options{
+  list-style: none;
+  font-size: 35px ;
+  font-weight: bold;
+  vertical-align: middle;
+}
+  /*Mise en forme liste du modal*/
 .modal {
   z-index: 2; /* au dessus du reste */
   position: absolute;
