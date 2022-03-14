@@ -258,13 +258,13 @@ export default function App() {
                         services={services}
                         afficheManager={openManagers}
                         hideManager={hideManagers}
+                        onManagerBuy={onManagerBuy}
                     />}
                 </div>
                 <div className="Unlock">
                     { showUnlocks &&
                     <UnlockComponent
                         world={world}
-                        prod={prod}
                         services={services}
                         afficheUnlock={openUnlocks}
                         hideUnlock={hideUnlocks}

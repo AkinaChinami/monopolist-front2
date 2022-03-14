@@ -8,13 +8,15 @@ type ManagerProps = {
     services :Services
     afficheManager():void
     hideManager():void
+    onManagerBuy(seuil:number, manager:Pallier):void
 }
-export default function ManagerComponent({services,world,hideManager}:ManagerProps){
+export default function ManagerComponent({services,world,hideManager, onManagerBuy}:ManagerProps){
 
     const [open, setOpen] = useState(false);
 
     function hireManager(manager: Pallier) {
         if(world.money > manager.seuil){
+            onManagerBuy(manager.seuil, manager)
             world.money=world.money-manager.seuil
             manager.unlocked=true
             setOpen(true)

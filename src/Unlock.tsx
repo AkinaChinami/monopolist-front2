@@ -4,12 +4,11 @@ import {Services} from "./Services";
 
 type upgradeProps = {
     world: World
-    prod:Product
     services :Services
     afficheUnlock():void
     hideUnlock():void
 }
-export default function UnlockComponent({world, services,prod,hideUnlock}:upgradeProps){
+export default function UnlockComponent({world, services,hideUnlock}:upgradeProps){
 
     return (
         <div id={"font"} className="modal">
@@ -17,8 +16,9 @@ export default function UnlockComponent({world, services,prod,hideUnlock}:upgrad
                 <h1 className="title">Unlock !</h1>
             </div>
             <div>
-                {world.products.product.map( product =>
-                    product.palliers.pallier.map( unlock =>
+                {world.products.product.filter(product => !product.managerUnlocked).map(
+                    product => product.palliers.pallier.filter(pallier => !pallier.unlocked).map(
+                        unlock =>
                         <div key={unlock.idcible} className="unlock">
                             <div>
                                 <div className="logo">
