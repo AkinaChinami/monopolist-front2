@@ -287,7 +287,7 @@ export default function App() {
                             world={world}
                             services={services}
                             afficheAngel={openAngelUpgrade}
-                            hideAngel={openAngelUpgrade}
+                            hideAngel={hideAngelUpgrade}
                         />}
                 </div>
 
