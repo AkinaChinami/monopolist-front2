@@ -49,11 +49,14 @@
   font-size: 30px ;
   font-weight: bold;
   vertical-align: middle;
+
 }
 /*Mise en forme du Header*/
 .header {
   display: grid;
   grid-template-columns: 30% 20% 25% 25%  ;
+  text-align: center;
+  background-color: #f4f4f4;
 }
 #logo {
   width: 50%;
@@ -66,6 +69,7 @@
 .main {
   display: grid;
   grid-template-columns: 20% 80%;
+  background-color: #f4f4f4;
 
 }
 
@@ -79,33 +83,58 @@
 .product {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
   background: no-repeat center center  url("../public/Font/1_Jour.PNG");
   background-size: cover;
   min-height:100vh;
+  /*color: #db001c;*/
+  font-size: 20px ;
 }
+
 #p{
   width: 50%;
   vertical-align: middle;
   border-radius: 50%;
 }
-.produit {
-  position: relative;
+
+.infoProd{
+  background-color: whitesmoke;
+  opacity: 95%;
+  border-radius: 5%;
+  text-align: center;
 }
-.q {
-  position: absolute;
-  bottom: -5px;
+
+.prodName{
+  background-color: whitesmoke;
+  opacity: 95%;
+  border-radius: 5%;
+  text-align: center;
 }
+
 /*Mise en forme liste des managers*/
 .modal {
   z-index: 2; /* au dessus du reste */
-  width: 800px; /* largeur */
-  height: 800px; /* hauteur */
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+
+  width: 1000px; /* largeur */
+  height: 600px; /* hauteur */
   overflow: auto; /* barre de scroll si besoin */
   background-color: white; /* opaque */
   border: solid;
-  top:10; /* a 10% du haut */
-  left:20%; /* a 20% de la gauche */
+  /* padding-top:10%; a 10% du haut */
+  /* padding-left:20%; a 20% de la gauche */
+  text-align: center;
 }
 .managerIcon{
+  width: 70%;
+}
+
+.upgradeIcon{
   width: 70%;
 }
