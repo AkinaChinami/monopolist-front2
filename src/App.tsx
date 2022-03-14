@@ -91,6 +91,10 @@ export default function App() {
         services.putManager(manager)
     }
 
+    function deleteTheWorld() {
+        services.deleteWorld()
+    }
+
     function changeMult(){
         let b = document.getElementById("commutateur")
         if (b!==null) {
@@ -288,6 +292,7 @@ export default function App() {
                             services={services}
                             afficheAngel={openAngelUpgrade}
                             hideAngel={hideAngelUpgrade}
+                            deleteTheWorld={deleteTheWorld}
                         />}
                 </div>
 

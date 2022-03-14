@@ -57,11 +57,10 @@ export class Services {
         }).catch(Services.handleError)
     }
 
-    deleteWorld(world : World): AxiosPromise<Response> {
+    deleteWorld(): AxiosPromise<Response> {
         return axios({
             method: 'delete',
             url: this.api + '/world',
-            data: world,
             headers: Services.setHeaders(this.user)
         }).catch(Services.handleError)
     }

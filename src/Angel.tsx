@@ -8,12 +8,9 @@ type upgradeProps = {
     services :Services
     afficheAngel():void
     hideAngel():void
+    deleteTheWorld():void
 }
-export default function AngelComponent({services,world,hideAngel}:upgradeProps){
-
-    function buyAngel(angel : Pallier) {
-
-    }
+export default function AngelComponent({services,world,hideAngel, deleteTheWorld}:upgradeProps){
 
     return (
         <div className="modal">
@@ -34,7 +31,7 @@ export default function AngelComponent({services,world,hideAngel}:upgradeProps){
                                 <div className="Angelcible"> {world.angelupgrades.pallier[angel.idcible-1].name } </div>
                                 <div className="Angelcost"> {angel.seuil} </div>
                             </div>
-                            <div onClick={() => buyAngel(angel)}>
+                            <div onClick={() => deleteTheWorld()}>
                                 <Button disabled={world.money < angel.seuil}> Hire !</Button>
                             </div>
                         </div>)}
