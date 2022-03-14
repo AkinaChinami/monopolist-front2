@@ -26,7 +26,7 @@ export default function AngelComponent({services,world,hideAngel}:upgradeProps){
                         <div key={angel.idcible} className="angelgrid">
                             <div>
                                 <div className="logo">
-                                    <img alt="angel logo" className="round" src= { services.server + angel.logo} />
+                                    <img alt="angel logo" className="icon" src= { services.server + angel.logo} />
                                 </div>
                             </div>
                             <div className="infosAngel">

@@ -32,7 +32,7 @@ export default function ManagerComponent({services,world,hideManager}:ManagerPro
                     <div key={manager.idcible} className="managergrid">
                         <div>
                             <div className="logo">
-                                <img alt="manager logo" className="managerIcon" src= { services.server + manager.logo} />
+                                <img alt="manager logo" className="icon" src= { services.server + manager.logo} />
                             </div>
                         </div>
                         <div className="infosmanager">

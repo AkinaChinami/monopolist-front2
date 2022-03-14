@@ -22,7 +22,7 @@ export default function UnlockComponent({world, services,prod,hideUnlock}:upgrad
                         <div key={unlock.idcible} className="unlock">
                             <div>
                                 <div className="logo">
-                                    <img alt="unlock logo" className="unlockIcon" src= { services.server + unlock.logo} />
+                                    <img alt="unlock logo" className="icon" src= { services.server + unlock.logo} />
                                 </div>
                             </div>
                             <div className="infoscashUnlock">

@@ -32,7 +32,7 @@ export default function CashUpgradeComponent({services,world,hideUpgrade, checkU
                         <div key={upgrade.idcible} className="cashUpgradegrid">
                             <div>
                                 <div className="logo">
-                                    <img alt="cashUpgrade logo" className="upgradeIcon" src= { services.server + upgrade.logo} />
+                                    <img alt="cashUpgrade logo" className="icon" src= { services.server + upgrade.logo} />
                                 </div>
                             </div>
                             <div className="infoscashUpgrade">
