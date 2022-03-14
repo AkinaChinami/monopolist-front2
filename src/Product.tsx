@@ -88,14 +88,19 @@ export default function ProductComponent({ prod, onProductionDone, qtmulti, mone
             <div>
                 <div className={"productElement"}>
                     <div className="produit">
-                        <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
-                        <span className="q">Quantité : {prod.quantite}</span>
+                        <div>
+                            <img id={"p"} alt={"logo"+prod.name} src={services.server + prod.logo} onClick={startFabrication}/>
+                            <span id="font"className="prodName"> {prod.name} </span>
+                        </div>
                         <button type="button" onClick={canBuyOrNot} disabled={money < coutNProduct(qtmulti) || qtmulti==0}>
                             x{qtmulti} Prix: {coutNProduct(qtmulti)}
                         </button>
-                        <span id="font"> {prod.name} </span>
-                        <div>Temps : {prod.vitesse}</div>
+                        <div className="infoProd">
+                            <span className="q">Quantité : {prod.quantite}</span>
+                            <div className="t">Temps : {prod.vitesse}</div>
+                        </div>
                     </div>
+                    <br/>
                     <Box sx={{width: '100%'}}>
                         <ProgressBar transitionDuration={"0.1s"} customLabel={" "} completed={progress}/>
                     </Box>

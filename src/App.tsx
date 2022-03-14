@@ -127,7 +127,7 @@ export default function App() {
                 <span id = "font" className="score">
                     <span dangerouslySetInnerHTML={{__html: transform(world.score)}}/>
                 </span>
-                <Button id = "commutateur" onClick={changeMult}>X{qtmulti}</Button>
+                <Button type="button" id = "commutateur" onClick={changeMult}>X{qtmulti}</Button>
             </div>
 
             <div className="main">
@@ -142,7 +142,7 @@ export default function App() {
                    </ul>
                 </div>
 
-                <div className="product">
+                <div id="prod" className="product">
                     <div className="tente" >
                         <ProductComponent
                             prod={world.products.product[0]}
@@ -152,7 +152,7 @@ export default function App() {
                             onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
-                    <div className="cabane" >
+                    <div id="prod" className="cabane" >
                         <ProductComponent
                             prod={world.products.product[1]}
                             onProductionDone={onProductionDone}
@@ -161,7 +161,7 @@ export default function App() {
                             onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
-                    <div className="immeuble" >
+                    <div id="prod" className="immeuble" >
                         <ProductComponent
                             prod={world.products.product[2]}
                             onProductionDone={onProductionDone}
@@ -170,7 +170,7 @@ export default function App() {
                             onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
-                    <div className="maison" >
+                    <div id="prod" className="maison" >
                         <ProductComponent
                             prod={world.products.product[3]}
                             onProductionDone={onProductionDone}
@@ -179,7 +179,7 @@ export default function App() {
                             onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
-                    <div className="peniche" >
+                    <div id="prod" className="peniche" >
                         <ProductComponent
                             prod={world.products.product[4]}
                             onProductionDone={onProductionDone}
@@ -188,7 +188,7 @@ export default function App() {
                             onProductBuy={onProductBuy}
                             services={services}/>
                     </div>
-                    <div className="chateau" >
+                    <div id="prod" className="chateau" >
                         <ProductComponent
                             prod={world.products.product[5]}
                             onProductionDone={onProductionDone}
