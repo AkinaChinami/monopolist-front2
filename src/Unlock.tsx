@@ -28,7 +28,7 @@ export default function UnlockComponent({world, services,prod,hideUnlock}:upgrad
                             <div className="infoscashUnlock">
                                 <div className="Unlockname"> {unlock.name} </div>
                                 <div className="Unlockcost"> {unlock.seuil} </div>
-                                <div className={"Unlocktype"}> {unlock.ratio +unlock.typeratio}</div>
+                                <div className={"Unlocktype"}> {unlock.ratio + " " +unlock.typeratio}</div>
                             </div>
                         </div>
                     )
